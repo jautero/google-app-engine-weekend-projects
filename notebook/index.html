@@ -1,0 +1,19 @@
+<html>
+  <head>
+<title>Notebook</title>
+<script language="Javascript" src="static/notebook.js">
+<link rel="stylesheet" href="/static/notebook.css" type="text/css" >
+</head>
+<body>
+<h1>Notebook</h1>
+This is a notebook implemented in Javascript. Click "Add note" to add notes. Click "Edit" above the note to edit it and "Done" when you are done. To save notes click "Save to URL" and then save resulting URL by bookmarking or some other way.
+<form action="/submit">
+<div class="content" id="content">
+</div>
+<input type="button" value="Add note" onclick="add('New Note','',true);">
+<input type="submit" name="submit" value="Save" onclick="return editAll();">
+<address>
+<a href="mailto:jautero@iki.fi">Juha Autero</a>
+</address>
+</body>
+</html>

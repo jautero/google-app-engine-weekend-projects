@@ -1,0 +1,33 @@
+/* Stylesheet file for Notebook.
+
+   Copyright 2008 Juha Autero <jautero@gmail.com>
+
+*/
+
+html,body {
+	height: 100%;
+}
+body {
+	position: relative;    
+    font-family: Futura, Arial, Helvetica, sans-serif;
+	color: #666;
+	font-size: 20pt;
+    margin: 0px auto;
+    width: 502px;
+}
+a {
+	color: #6799b1;
+	text-decoration: underline;
+}
+a:hover {
+	color: #838f96;
+	text-decoration: none;
+}
+
+#content {
+    width: 580px;
+    margin: 0px auto;
+    padding-left: 0px;
+}
+
+
