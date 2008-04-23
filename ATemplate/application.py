@@ -20,9 +20,10 @@
 #
 
 project="@project@"
-version=1.0
-author=@author@
-
+version="1.0"
+author="@author@"
+copyright="Copyright @year@ @author@"
+application="@application@"
 import wsgiref.handlers
 import os
 
@@ -35,7 +36,6 @@ class @mainhandler@(webapp.RequestHandler):
     template_values=globals()
     path = os.path.join(os.path.dirname(__file__), 'index.html')
     self.response.out.write(template.render(path, template_values))
-
 
 def main():
   application = webapp.WSGIApplication([('/', @mainhandler@)],
