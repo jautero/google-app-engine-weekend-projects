@@ -8,12 +8,20 @@ var count=0;
 function add(title,text,editit) {
   var content=document.getElementById("content");
   var id="note"+count;
-  var node=document.createElement("div");
+  var node=document.getElementById('notetemplate').cloneNode(true);
   count=count+1;
-  
-
   node.id=id;
-  node.innerHTML='<div class="menu" onclick="edit(this.parentNode);">Edit</div><div class="title">'+title+'</div><div class="content">'+text+'</div>';
+  for (var i = node.childNodes.length - 1; i >= 0; i--){
+  	var element=node.childNodes[i];
+	if (element.getAttribute("class")=="title") {
+		element.setAttribute("id",id+"t");
+		element.innerHTML=title;
+	}
+	if (element.getAttribute("class")=="content") {
+		element.setAttribute("id",id+"c");
+		element.innerHTML=text;
+	}
+  };
   content.appendChild(node);
   if (editit) {
     edit(node);
@@ -31,13 +39,19 @@ function editAll() {
   }  
   return true;
 }
+function replace_node_with_edit_fragment(node,title,content) {
+	var editnode=document.getElementById('edittemplate').cloneNode(true);
+	editnode.id=node.id
+	var titlename= node.id +'t';
+	var contentname = node.id + 'c';
+}
 
 function edit(node) {
   var divs=node.getElementsByTagName('div');
   var quote="'";
-  var title=divs[1].innerHTML;
+  var title=divs[0].innerHTML;
   var content=divs[2].innerHTML;
-  node.innerHTML='<div class="menu" onclick="done(this.parentNode);">done</div><input type="text" name="'+node.id+'t" value="'+title+'" class="title"> <br><textarea name="'+node.id+'c" class="content" rows=5>'+content+'</textarea>'; 
+  
 }
 
 function getValueOfNamedChild(node,name)
