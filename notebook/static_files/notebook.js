@@ -37,7 +37,7 @@ function edit(node) {
   var quote="'";
   var title=divs[1].innerHTML;
   var content=divs[2].innerHTML;
-  node.innerHTML='<div class="menu" onclick="done(this.parentNode);">done</div><input type="text" name="'+node.id+'t" value="'+title+'"> <br><textarea name="'+node.id+'c">'+content+'</textarea>'; 
+  node.innerHTML='<div class="menu" onclick="done(this.parentNode);">done</div><input type="text" name="'+node.id+'t" value="'+title+'" class="title"> <br><textarea name="'+node.id+'c" class="content" rows=5>'+content+'</textarea>'; 
 }
 
 function getValueOfNamedChild(node,name)

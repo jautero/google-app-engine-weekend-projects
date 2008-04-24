@@ -30,4 +30,16 @@ a:hover {
     padding-left: 0px;
 }
 
+input {
+	border: 1px solid;
+	font-size: 20pt;
+}
+textarea {
+	border: 1px solid;
+	font-size: 20pt;
+	width: 500;
+}
+input.title {
+	width:500px;
+}
 
