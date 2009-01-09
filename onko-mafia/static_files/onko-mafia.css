@@ -1,0 +1,47 @@
+/* Stylesheet file for Onko Mafia.
+
+   Copyright 2009 Juha Autero <jautero@iki.fi>
+
+*/
+
+html,body {
+	height: 100%;
+}
+body {
+	position: relative;    
+    font-family: Helvetica, sans-serif;
+	color: #000;
+	background-color:#fff;
+	font-size: 5em;
+    text-align: center;
+    
+}
+
+.on {
+    color:#00ff00;
+}
+
+.ei {
+    color:#ff0000;
+}
+
+address {
+    font-size: 10pt;
+    text-align: left;
+}
+
+div.feeds {
+    font-size: 16pt;
+    text-align: right;
+    
+}
+
+a.rss {
+    color: #fff;
+    background-color:#FF7F00;
+}
+
+a.atom {
+    color: #fff;
+    background-color:#50C878;
+}
