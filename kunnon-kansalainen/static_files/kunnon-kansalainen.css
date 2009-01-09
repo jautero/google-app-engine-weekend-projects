@@ -1,0 +1,30 @@
+/* Stylesheet file for Kunnon kansalainen.
+
+   Copyright 2009 Juha Autero <jautero@iki.fi>
+
+*/
+body {
+    font-family: Helvetica, sans-serif;
+	color: #000;
+	background-color:#fff;
+	font-size: 20pt;
+}
+
+span.title {
+  font-size: 40pt;
+  
+}
+span.login {
+  font-size: 10pt;
+}
+span.negative {
+    color: #ff0000;
+}
+
+span.positive {
+    color: #000000;
+}
+
+div.item {
+  margin-left: 2.5em;
+}

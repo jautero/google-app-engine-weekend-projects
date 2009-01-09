@@ -1,0 +1,38 @@
+<html>
+  <head>
+	<link rel="stylesheet" type="text/css" href="/static/{{application}}.css" ></link>
+	<script type="application/x-javascript" src="/static/{{application}}.js" ></script>
+	<title>{{ project }}</title>
+</head>
+<body>
+<div><span class="title">{{ project }}</span> <span class="login">{% if user %}<a href="{{ logouturl }}">logout</a>{% else %}<a href="{{loginurl}}">login</a>{% endif %}</span></div>
+Kunnon kansalaisella on aikaa <span class="{{ valuetype }}">{{ timeleft }}</span> minuuttia vuodessa, sillä hän
+{% if canwrite %}
+<div class=edit>
+	<form action="/" method=post>
+	<input type="text" name="action" size="50"> <input type="text" name="time" value="" size=3>
+<select name="unit">
+	<option value="0">minuuttia</option>
+	<option value="1">tuntia</option>
+	<option value="2">päivää</option>
+</select>
+<select name="freq">
+	<option value="0">päivässä</option>
+	<option value="1">viikossa</option>
+	<option value="2">kuukaudessa</option>
+	<option value="3">vuodessa</option>
+</select>
+<input type="submit" name="submit" value="submit">
+</form>
+</div>
+{% endif %}
+{% for thing in things %} 
+<div class=item>
+{{ thing.action }} {{ thing.time }} {{ thing.unit }} {{ thing.freq }}
+</div>
+{% endfor %}
+<address>
+{{copyright}}
+</address>
+</body>
+</html>
