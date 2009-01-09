@@ -1,5 +1,5 @@
-application: onko-mafia
-version: 1
+application: onkomafia
+version: 2
 runtime: python
 api_version: 1
 
