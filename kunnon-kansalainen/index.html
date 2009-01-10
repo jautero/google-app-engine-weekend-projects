@@ -16,6 +16,7 @@ Kunnon kansalaisella on aikaa <span class="{{ valuetype }}">{{ timeleft }}</span
 	<option value="1">tuntia</option>
 	<option value="2">päivää</option>
 </select>
+	<input type="text" name="amount" value="" size=3>
 <select name="freq">
 	<option value="0">päivässä</option>
 	<option value="1">viikossa</option>
@@ -32,7 +33,8 @@ Kunnon kansalaisella on aikaa <span class="{{ valuetype }}">{{ timeleft }}</span
 </div>
 {% endfor %}
 <address>
-{{copyright}}
+<a href="/static/miks.html">Miks?</a><br>
+{{copyright}} Taas yksi <a href="http://jautero.com/pmwiki/HIDO.GoogleWeekendApps">Google Weekend App</a>
 </address>
 </body>
 </html>

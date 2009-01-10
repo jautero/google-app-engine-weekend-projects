@@ -25,6 +25,10 @@ span.positive {
     color: #000000;
 }
 
+address {
+  margin-top: 2em;
+  font-size: 10pt;
+}
 div.item {
   margin-left: 2.5em;
 }

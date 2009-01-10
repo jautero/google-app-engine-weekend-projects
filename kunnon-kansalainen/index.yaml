@@ -10,7 +10,7 @@ indexes:
 # automatically uploaded to the admin console when you next deploy
 # your application using appcfg.py.
 
-# Used 20 times in query history.
+# Used 2 times in query history.
 - kind: KunnonKansalainen
   properties:
   - name: date

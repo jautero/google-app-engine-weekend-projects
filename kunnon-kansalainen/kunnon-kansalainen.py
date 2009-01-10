@@ -39,15 +39,17 @@ class KunnonKansalainen(webapp.RequestHandler):
   freq_multi=[365,52,12,1]
   units=[u"minuuttia",u"tuntia",u"p&auml;iv&auml;&auml;"]
   freqs=[u"p&auml;iv&auml;ss&auml;",u"viikossa",u"kuukaudessa",u"vuodessa"]
+  amounts=[u"p&auml;iv&auml;n&auml; vuodessa", u"viikkona vuodessa", u"kuukautena vuodessa"]
   def get(self):
     template_values=dict(globals())
     template_values["loginurl"]=users.create_login_url("/")
     template_values["logouturl"]=users.create_logout_url("/")
-    if users.get_current_user():
+    user=users.get_current_user()
+    if user:
       template_values["user"]=True
     else:
       template_values["user"]=False
-    if users.is_current_user_admin():
+    if self.canwrite(user):
       template_values["canwrite"]=True
     else:
       template_values["canwrite"]=False
@@ -66,15 +68,25 @@ class KunnonKansalainen(webapp.RequestHandler):
     
   def post(self):
     action=self.request.get("action")
-    time=int(self.request.get("time"))
+    time=float(self.request.get("time"))
     unit=int(self.request.get("unit"))
     freq=int(self.request.get("freq"))
-    total=time*self.unit_multi[unit]*self.freq_multi[freq]
-    new_entry=model.KunnonKansalainen(action=action,time=time,unit=self.units[unit],freq=self.freqs[freq],total_time=total)
-    if users.is_current_user_admin():
+    amount=int(self.request.get("amount"))
+    total=time*self.unit_multi[unit]
+    if amount>0:
+      total=total*amount
+      freqtext=self.amounts[freq]
+    else:
+      total=total*self.freq_multi[freq]
+      freqtext=self.freqs[freq]
+    new_entry=model.KunnonKansalainen(action=action,time=time,unit=self.units[unit],freq=self.freqtext,total_time=total)
+    user=users.get_current_user()
+    if self.canwrite(user):
       new_entry.put()
     self.redirect("/")
     
+  def canwrite(self,user):
+    return user != None
     
 
 def main():
