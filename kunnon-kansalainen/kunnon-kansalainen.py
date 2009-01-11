@@ -73,17 +73,19 @@ class KunnonKansalainen(webapp.RequestHandler):
     freq=int(self.request.get("freq"))
     amount=self.request.get("amount")
     multiple=int(self.request.get("multi"))
-    total=time*self.unit_multi[unit]
     if multiple>0:
-      total=total*multiple
+      time=time*multiple
+    total=time*self.unit_multi[unit]
     if amount != "":
-      total=total*int(amount)
+      amount=int(amount)
+      total=total*amount
       freqtext=self.amounts[freq]
     else:
       total=total*self.freq_multi[freq]
       freqtext=self.freqs[freq]
+      amount=0
     total=int(total)
-    new_entry=model.KunnonKansalainen(action=action,time=time,unit=self.units[unit],freq=freqtext,total_time=total)
+    new_entry=model.KunnonKansalainen(action=action,time=time,unit=self.units[unit],freq=freqtext,total_time=total,amount=amount)
     user=users.get_current_user()
     if self.canwrite(user):
       new_entry.put()

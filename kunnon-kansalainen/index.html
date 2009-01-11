@@ -30,7 +30,7 @@ Kunnon kansalaisella on aikaa <span class="{{ valuetype }}">{{ timeleft }}</span
 {% endif %}
 {% for thing in things %} 
 <div class=item>
-{{ thing.action }} {{ thing.time }} {{ thing.unit }} {{ thing.freq }}
+{{ thing.action }} {{ thing.time }} {{ thing.unit }} {% if thing.amount %} {{ thing.amount }} {% endif %} {{ thing.freq }}
 </div>
 {% endfor %}
 <address>

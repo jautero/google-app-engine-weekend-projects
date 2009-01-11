@@ -5,4 +5,5 @@ class KunnonKansalainen(db.Model):
   unit=db.StringProperty()
   freq=db.StringProperty()
   total_time=db.IntegerProperty()
+  amount=db.IntegerProperty()
   date = db.DateTimeProperty(auto_now_add=True)
