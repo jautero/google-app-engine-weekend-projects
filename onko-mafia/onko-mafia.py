@@ -24,6 +24,7 @@ version="1.0"
 author="Juha Autero <jautero@iki.fi>"
 copyright="Copyright &copy; 2009 Juha Autero <jautero@iki.fi>"
 application="onko-mafia"
+import logging
 import wsgiref.handlers
 import os,time
 
@@ -51,6 +52,7 @@ def onko_mafia_week(date):
     return weekno(date) % 2 == 1
                 
 def onko_mafia_day(date):
+    logging.info("Time: %s",time.asctime(date))
     if onko_mafia_week(date) and date.tm_wday==3:
         return True
     else:
@@ -60,8 +62,7 @@ class OnkoMafia(webapp.RequestHandler):
 
     def get(self):
         template_values=dict(globals())
-    
-        mydate=time.localtime()
+        mydate=time.localtime(time.time()+2*3600)
         if onko_mafia_week(mydate):
             template_values["weekclass"]="on"
             template_values["weekresult"]="on"
