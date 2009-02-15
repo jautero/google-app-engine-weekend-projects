@@ -68,6 +68,10 @@ class OnkoMafia(webapp.RequestHandler):
         elif format=="json":
             self.set_json_template_values(template_values,onko_mafia_week(mydate),onko_mafia_day(mydate))
             path=os.path.join(os.path.dirname(__file__),'index.json')
+        elif format=="badge":
+            self.set_badge_template_values(template_values,onko_mafia_week(mydate),onko_mafia_day(mydate))
+            path=os.path.join(os.path.dirname(__file__),'badge.js')
+            
         self.response.out.write(template.render(path, template_values))
 
     def set_html_template_values(self,template_values,mafia_week,mafia_day):
@@ -93,7 +97,22 @@ class OnkoMafia(webapp.RequestHandler):
             template_values["dayresult"]="true"
         else:
             template_values["dayresult"]="false"
-        
+
+    def set_badge_template_values(self,template_values,mafia_week,mafia_day):
+        if mafia_week:
+            template_values["weekcolor"]="#00ff00"
+            template_values["weekword"]="on"
+        else:
+            template_values["weekcolor"]="#ff0000"
+            template_values["weekword"]="ei"
+            
+        if mafia_day:
+            template_values["daycolor"]="#00ff00"
+            template_values["dayword"]="on"
+        else:
+            template_values["daycolor"]="#ff0000"
+            template_values["dayword"]="ei"
+            
 def main():
     application = webapp.WSGIApplication([('/', OnkoMafia)],
                                         debug=True)
