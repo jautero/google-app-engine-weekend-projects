@@ -60,23 +60,40 @@ class OnkoMafia(webapp.RequestHandler):
 
     def get(self):
         template_values=dict(globals())
-    
         mydate=time.localtime()
-        if onko_mafia_week(mydate):
+        format=self.request.get("format","html")
+        if format=="html":
+            self.set_html_template_values(template_values,onko_mafia_week(mydate),onko_mafia_day(mydate))
+            path=os.path.join(os.path.dirname(__file__),'index.html')
+        elif format=="json":
+            self.set_json_template_values(template_values,onko_mafia_week(mydate),onko_mafia_day(mydate))
+            path=os.path.join(os.path.dirname(__file__),'index.json')
+        self.response.out.write(template.render(path, template_values))
+
+    def set_html_template_values(self,template_values,mafia_week,mafia_day):
+        if mafia_week:
             template_values["weekclass"]="on"
             template_values["weekresult"]="on"
         else:
             template_values["weekclass"]="ei"
             template_values["weekresult"]="ei"
-        if onko_mafia_day(mydate):
+        if mafia_day:
             template_values["dayclass"]="on"
             template_values["dayresult"]="on"
         else:        
             template_values["dayclass"]="ei"
             template_values["dayresult"]="ei"
-        path = os.path.join(os.path.dirname(__file__), 'index.html')
-        self.response.out.write(template.render(path, template_values))
 
+    def set_json_template_values(self,template_values,mafia_week,mafia_day):
+        if mafia_week:
+            template_values["weekresult"]="true"
+        else:
+            template_values["weekresult"]="false"
+        if mafia_day:
+            template_values["dayresult"]="true"
+        else:
+            template_values["dayresult"]="false"
+        
 def main():
     application = webapp.WSGIApplication([('/', OnkoMafia)],
                                         debug=True)
