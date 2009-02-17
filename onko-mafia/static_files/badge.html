@@ -1,0 +1,30 @@
+<html>
+  <head>
+	<link rel="stylesheet" type="text/css" href="/static/onko-mafia.css" >
+	<title>Onko Mafia: Badge</title>
+</head>
+<body style="margin-left:2cm;">
+<div style="font-size:20pt;text-align:left;">Haluaisitko omalle sivullesi tiedon siitä, onko tänään mafia? Tässä on näppärä badge, jolla se onnistuu:
+	
+	<div class="mafiabadge">
+		<script src="http://www.google.com/jsapi"></script>
+		<script src="http://localhost:8080/?format=badge"></script>
+		<div class="title">Onko mafia...</div>
+		<div>tänään? <span id="mafiaday"></span></div>
+		<div>tällä viikolla? <span id="mafiaweek"></span></div>
+	</div>
+	
+	Lisää vain sivullesi seuraava HTML-koodi:
+	<div>
+	<textarea rows="7" cols="76">
+<div class="mafiabadge">
+<script src="http://www.google.com/jsapi"></script>
+<script src="http://localhost:8080/?format=badge"></script>
+	<div class="title">Onko mafia...</div>
+	<div>tänään? <span id="mafiaday"></span></div>
+	<div>tällä viikolla? <span id="mafiaweek"></span></div>
+</div>
+	</textarea></div>
+</div>		
+</body>
+</html>

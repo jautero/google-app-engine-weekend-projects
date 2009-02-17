@@ -2,9 +2,9 @@
 #
 # Copyright 2007 Google Inc.
 #
-# Copyright 2008 Juha Autero
+# Copyright 2008 Juha Autero.
 #
-# Copyright 2009 Juha Autero <jautero@iki.fi>
+# Copyright 2009 Juha Autero <jautero@iki.fi>.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@
 project="Onko Mafia"
 version="1.0"
 author="Juha Autero <jautero@iki.fi>"
-copyright="Copyright &copy; 2009 Juha Autero <jautero@iki.fi>"
+copyright="Copyright &copy; 2009 Juha Autero &lt;jautero@iki.fi&gt;."
 application="onko-mafia"
 import wsgiref.handlers
 import os,time

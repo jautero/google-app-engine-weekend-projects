@@ -16,7 +16,10 @@ body {
     text-align: center;
     
 }
-
+.mafiabadge {
+    font-size: 10pt;
+    text-align: left;
+}
 .on {
     color:#00ff00;
 }
@@ -25,15 +28,21 @@ body {
     color:#ff0000;
 }
 
-address {
+div.copyright {
     font-size: 10pt;
-    text-align: left;
+    font-color: #808080;
+    text-align: right;
+    
 }
 
 div.feeds {
     font-size: 16pt;
     text-align: right;
     
+}
+.new {
+    text-align:left;
+    font-size: 16pt;
 }
 
 a.rss {
