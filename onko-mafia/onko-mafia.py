@@ -26,23 +26,33 @@ copyright="Copyright &copy; 2009 Juha Autero <jautero@iki.fi>"
 application="onko-mafia"
 import logging
 import wsgiref.handlers
-import os,time
+import os,datetime
 
 from google.appengine.ext.webapp import template
 from google.appengine.ext import webapp
 
+month_lengths=[31,28,31,30,31,30,31,31,30,31,30,31]
+def is_leapyear(year):
+  return (X%4==0 and X%100!=0 or x%400==0)
+
+def year_day(date):
+  if is_leapyear(date.year) and date.month > 2:
+    # Add leap day
+    return sum(month_lengths[0:date.month-1])+date.day+1
+  else:
+    return sum(month_lengths[0:date.month-1])+date.day
+  
 def weekno(date):
-    year_weekday=time.localtime(time.mktime((date.tm_year,1,1,12,0,0,0,0,0))).tm_wday
-    leap_year=lambda x:(x%4==0 and x%100!=0 or x%400==0)
-    weekno=((date.tm_yday-1)+year_weekday)/ 7
+    year_weekday=datetime.date(date.year,1,1).weekday()
+    weekno=((year_day(date)-1)+year_weekday)/ 7
     if year_weekday in range(0,4):
         weekno+=1
     if (weekno==53):
-        if not year_weekday==3 or (year_weekday==2 and leap_year(date.tm_year)):
+        if not year_weekday==3 or (year_weekday==2 and is_leapyear(date.year)):
             weekno=1
     if (weekno==0):
-        year_weekday=time.localtime(time.mktime((date.tm_year-1,1,1,12,0,0,0,0,0))).tm_wday
-        if year_weekday==3 or (year_weekday==2 and leap_year(date.tm_year-1)):
+        year_weekday=datetime.date(date.year-1,1,1).weekday()
+        if year_weekday==3 or (year_weekday==2 and is_leapyear(date.year-1)):
             weekno=53
         else:
             weekno=52
@@ -52,7 +62,7 @@ def onko_mafia_week(date):
     return weekno(date) % 2 == 1
                 
 def onko_mafia_day(date):
-    logging.info("Time: %s",time.asctime(date))
+    logging.info("Time: %s",date.ctime())
     if onko_mafia_week(date) and date.tm_wday==3:
         return True
     else:
@@ -62,7 +72,7 @@ class OnkoMafia(webapp.RequestHandler):
 
     def get(self):
         template_values=dict(globals())
-        mydate=time.localtime(time.time()+2*3600)
+        mydate=datetime.date.today()
         if onko_mafia_week(mydate):
             template_values["weekclass"]="on"
             template_values["weekresult"]="on"
