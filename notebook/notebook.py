@@ -36,6 +36,9 @@ class Notebook(webapp.RequestHandler):
     template_values=globals()
     path = os.path.join(os.path.dirname(__file__), 'index.html')
     self.response.out.write(template.render(path, template_values))
+    
+  def post(self):
+    pass
 
 def main():
   application = webapp.WSGIApplication([('/', Notebook)],

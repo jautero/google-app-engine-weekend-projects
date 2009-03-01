@@ -62,6 +62,13 @@ class OnkoMafia(webapp.RequestHandler):
         template_values=dict(globals())
         mydate=time.localtime()
         format=self.request.get("format","html")
+        if format=="banner":
+            img_index=0
+            if onko_mafia_day(mydate):
+                img_index+=1
+            if onko_mafia_week(mydate):
+                img_index+=2
+            path=os.path.join(os.path.dirname(__file__),"banner_%d.png" % img_index)
         if format=="html":
             self.set_html_template_values(template_values,onko_mafia_week(mydate),onko_mafia_day(mydate))
             path=os.path.join(os.path.dirname(__file__),'index.html')
