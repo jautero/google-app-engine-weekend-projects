@@ -8,20 +8,28 @@
 </head>
 <body>
 <h1>Notebook</h1>
-This is a notebook implemented in Javascript. Click "Add note" to add notes. Click "Edit" above the note to edit it and "Done" when you are done. To save notes click "Save to URL" and then save resulting URL by bookmarking or some other way.
-<div id="notetemplate">
-	<div class="title" onclick="toggle_content(this.parentNode);"></div>
-	<div class="content" onclick="edit(this.parentNode)"></div>
+This is a notebook for iPhone like internet communicators. Click "Add note" to add 
+notes. Click node title to hide and show note text. Click note text to edit it and 
+"done" when you are done. To save notes click "Save".
+<div id="{{emptynote.id}}">
+	<div class="title" id="{{emptynote.id}}t" onclick="toggle_content(this.parentNode);">{{emptynote.title}}</div>
+	<div class="content" id="{{emptynote.id}}c" onclick="edit(this.parentNode)">{{emptynote.content}}</div>
 </div>
 <div id="edittemplate">
-	<div class="menu" onclick="done(this.parentNode);">done</div>
-	<input type="text" name="" value="" class="title"> <br>
+	<input type="text" name="" value="" class="title">
+	<span class="menu" onclick="done(this.parentNode);">done</span>
 	<textarea name="" class="content" rows=5>
 	</textarea>
 </div>
 <form action="/submit">
 	<a name="content"></a>
 		<div class="content" id="content">
+			{% for note in notes %}
+				<div id="{{note.id}}">
+					<div class="title" id="{{note.id}}t" onclick="toggle_content(this.parentNode);">{{note.title}}</div>
+					<div class="content" id="{{note.id}}c" onclick="edit(this.parentNode)">{{note.content}}</div>
+				</div>
+			{% endfor %}
 		</div>	
 <input type="button" value="Add note" onclick="add('New Note','',true);">
 <input type="submit" name="submit" value="Save" onclick="return editAll();">

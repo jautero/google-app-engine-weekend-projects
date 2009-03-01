@@ -63,28 +63,40 @@ def onko_mafia_week(date):
                 
 def onko_mafia_day(date):
     logging.info("Time: %s",date.ctime())
-    if onko_mafia_week(date) and date.tm_wday==3:
+    if onko_mafia_week(date) and date.weekday()==3:
         return True
     else:
         return False
 
-def convert_to_text(truth_value):
+def convert_to_text(truth_value,valuestrings=("on","ei")):
   if truth_value:
-    return "on"
+    return valuestrings[0]
   else:
-    return "ei"
+    return valuestrings[1]
 
 class OnkoMafia(webapp.RequestHandler):
 
     def get(self):
         template_values=dict(globals())
         mydate=datetime.date.today()
-        template_values["weekclass"]=convert_to_text(onko_mafia_week(mydate))
-        template_values["weekresult"]=convert_to_text(onko_mafia_week(mydate))
-        template_values["dayclass"]=convert_to_text(onko_mafia_day(mydate))
-        template_values["dayresult"]=convert_to_text(onko_mafia_day(mydate))
-        path = os.path.join(os.path.dirname(__file__), 'index.html')
+        format=self.request.get("format","html")
+        if format=="html":
+            self.set_html_template_values(template_values,onko_mafia_week(mydate),onko_mafia_day(mydate))
+            path=os.path.join(os.path.dirname(__file__),'index.html')
+        elif format=="json":
+            self.set_json_template_values(template_values,onko_mafia_week(mydate),onko_mafia_day(mydate))
+            path=os.path.join(os.path.dirname(__file__),'index.json')
         self.response.out.write(template.render(path, template_values))
+
+    def set_html_template_values(self,template_values,mafia_week,mafia_day):
+        template_values["weekclass"]=convert_to_text(mafia_week)
+        template_values["weekresult"]=convert_to_text(mafia_week)
+        template_values["dayclass"]=convert_to_text(mafia_day)
+        template_values["dayresult"]=convert_to_text(mafia_day)
+
+    def set_json_template_values(self,template_values,mafia_week,mafia_day):
+        template_values["weekresult"]=convert_to_text(mafia_week,("true","false"))
+        template_values["dayresult"]=convert_to_text(mafia_day,("true","false"))
 
 class FeedItem:
   def __init__(self,date,weekly):
