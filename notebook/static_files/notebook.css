@@ -48,6 +48,10 @@ textarea {
 	width: 500;
 }
 input.title {
-	width:500px;
+	width:400px;
 }
 
+.menu {
+	border: 1px solid;
+	background-color: #f0f0f0;
+}

@@ -24,17 +24,23 @@ version="1.0"
 author="Juha Autero <jautero@gmail.com>"
 copyright="Copyright 2008 Juha Autero <jautero@gmail.com>"
 application="notebook"
+import logging
 import wsgiref.handlers
 import os
 
 from google.appengine.ext.webapp import template
 from google.appengine.ext import webapp
+from notemodel import Note
 
 class Notebook(webapp.RequestHandler):
-
+  
   def get(self):
-    template_values=globals()
+    template_values={}
+    template_values["notetemplate"]=file(os.path.join(os.path.dirname(__file__),'note.tmpl')).read()
+    template_values["notes"]=Note.gql("")
+    template_values["emptynote"]={"id":"notetemplate","title":"","content":""}
     path = os.path.join(os.path.dirname(__file__), 'index.html')
+    logging.info(template_values["notetemplate"])
     self.response.out.write(template.render(path, template_values))
     
   def post(self):
