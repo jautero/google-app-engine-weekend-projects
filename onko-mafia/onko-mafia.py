@@ -106,37 +106,15 @@ class OnkoMafia(webapp.RequestHandler):
         template_values["dayresult"]=convert_to_text(mafia_day)
 
     def set_json_template_values(self,template_values,mafia_week,mafia_day):
-<<<<<<< HEAD:onko-mafia/onko-mafia.py
-        if mafia_week:
-            template_values["weekresult"]="true"
-        else:
-            template_values["weekresult"]="false"
-        if mafia_day:
-            template_values["dayresult"]="true"
-        else:
-            template_values["dayresult"]="false"
-=======
         template_values["weekresult"]=convert_to_text(mafia_week,("true","false"))
         template_values["dayresult"]=convert_to_text(mafia_day,("true","false"))
->>>>>>> c696bf3443fe7aa6c9f45f97f761d2e411375830:onko-mafia/onko-mafia.py
 
-<<<<<<< HEAD:onko-mafia/onko-mafia.py
     def set_badge_template_values(self,template_values,mafia_week,mafia_day):
-        if mafia_week:
-            template_values["weekcolor"]="#00ff00"
-            template_values["weekword"]="on"
-        else:
-            template_values["weekcolor"]="#ff0000"
-            template_values["weekword"]="ei"
+        template_values["weekcolor"]=convert_to_text(mafia_week,("#00ff00","#ff0000"))
+        template_values["weekword"]=convert_to_text(mafia_week)            
+        template_values["daycolor"]=convert_to_text(mafia_day,("#00ff00","#ff0000"))
+        template_values["dayword"]=convert_to_text(mafia_day)
             
-        if mafia_day:
-            template_values["daycolor"]="#00ff00"
-            template_values["dayword"]="on"
-        else:
-            template_values["daycolor"]="#ff0000"
-            template_values["dayword"]="ei"
-            
-=======
 class FeedItem:
   def __init__(self,date,weekly):
     self.date=date
@@ -175,7 +153,6 @@ class Feed:
       else:
         date=date-daydelta
       
->>>>>>> c696bf3443fe7aa6c9f45f97f761d2e411375830:onko-mafia/onko-mafia.py
 def main():
     application = webapp.WSGIApplication([('/', OnkoMafia)],
                                         debug=True)
