@@ -11,9 +11,9 @@ google.load("jquery", "1.3.1");
 google.setOnLoadCallback(function() {
 	var weekElement =$("#mafiaweek");
 	var dayElement = $("#mafiaday");
-	weekElement.css("color", "{{weekcolor}}");
-	weekElement.html("{{weekword}}");
+	weekElement.css("color", "%(weekcolor)s");
+	weekElement.html("%(weekword)s");
 
-	dayElement.css("color","{{daycolor}}");
-	dayElement.html("{{dayword}}");
+	dayElement.css("color","%(daycolor)s");
+	dayElement.html("%(dayword)s");
 });

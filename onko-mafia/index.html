@@ -1,19 +1,20 @@
 <html>
   <head>
-	<link rel="stylesheet" type="text/css" href="/static/{{application}}.css" >
-	<script type="text/javascript" src="/static/{{application}}.js" ></script>
-	<title>{{ project }}</title>
+	<link rel="stylesheet" type="text/css" href="/static/%(application)s.css" >
+	<script type="text/javascript" src="/static/%(application)s.js" ></script>
+	<title>%(project)s</title>
 </head>
 <body>
-<div class="day">Onko mafia tänään? <span class="{{dayclass}}">{{ dayresult }}</span></div>
-<div class="week">Onko mafia tällä viikolla? <span class="{{weekclass}}">{{weekresult}}</span></div>
+<div class="title">Onko mafia</div>
+<div class="day">tänään? <span class="%(dayclass)s">%(dayresult)s</span></div>
+<div class="week">tällä viikolla? <span class="%(weekclass)s">%(weekresult)s</span></div>
 <div class="feeds">Syötteet: Tulossa.
 <!-- Onko mafia tänään? <a href="" class=rss>RSS</a> <a href="" class=atom>atom</a>
 Onko mafia tällä viikolla? <a href="" class=rss>RSS</a> <a href="" class=atom>atom</a> -->
 </div>
     <div class="new">Nyt voit myös <a href="/static/badge.html">lisätä mafiatiedot sivullesi</a>!</div>
 <div class="copyright">
-{{copyright}} Yet another <a href="http://jautero.com/pmwiki/HIDO.GoogleWeekendApps">Google Weekend App</a>.
+%(copyright)s Yet another <a href="http://jautero.com/pmwiki/HIDO.GoogleWeekendApps">Google Weekend App</a>.
 </div>
 </body>
 </html>

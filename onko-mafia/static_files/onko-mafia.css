@@ -12,9 +12,23 @@ body {
     font-family: Helvetica, sans-serif;
 	color: #000;
 	background-color:#fff;
-	font-size: 5em;
-    text-align: center;
+	font-size: 20pt;
+    text-align: left;
     
+}
+div.title {
+    background-color: #000;
+    color: #fff;
+    font-size: 2em;
+    float: left;
+    padding: 5pt 0.5em 5pt 0.5em;
+}
+
+.day {
+    padding-top: 5pt;
+}
+.week {
+    padding-bottom:5pt;
 }
 .mafiabadge {
     font-size: 10pt;
@@ -38,6 +52,7 @@ div.copyright {
 div.feeds {
     font-size: 16pt;
     text-align: right;
+    float: right;
     
 }
 .new {
