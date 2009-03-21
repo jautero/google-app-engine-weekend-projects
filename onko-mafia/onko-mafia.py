@@ -59,10 +59,10 @@ class FeedItem:
   def init_feed_dict(self):
     feed_dict={}
     if self.weekly:
-      feed_dict["title"]="Onko mafia tällä viikolla?"
+      feed_dict["title"]="Onko mafia t&auml;ll&auml; viikolla?"
       feed_dict["answer"]=convert_to_text(self.week)
     else:
-      feed_dict["title"]="Onko mafia tänään?"
+      feed_dict["title"]="Onko mafia t&auml;n&auml;&auml;n?"
       feed_dict["answer"]=convert_to_text(self.day)
     feed_dict["date"]=self.date.ctime()
     return feed_dict
