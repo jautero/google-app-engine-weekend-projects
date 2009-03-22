@@ -27,25 +27,30 @@ application="onko-mafia"
 import logging
 import wsgiref.handlers
 import os,datetime
-import formats,formatobjects
+import formats
+from formatobjects import mafiat
 
 from google.appengine.ext.webapp import template
 from google.appengine.ext import webapp
 
 class OnkoMafia(webapp.RequestHandler):
-
     def get(self):
         template_values=dict(globals())
-        logging.info("kukkureset")
-        format=self.request.get("format","html")
+        city=self.request.get("kaupunki","helsinki")
+        for candidate in mafiat.keys():
+            if candidate==city:
+                template_values[candidate+"selected"]="selected"
+            else:
+                template_values[candidate+"selected"]=""
+        mymafiacalculator=mafiat[city]()
+        format=self.request.get("format","html")        
         if format=="html":
             myformatspec=formats.get_html_format(template_values)
         elif format=="json":
             myformatspec=formats.get_json_format()
         elif format=="badge":
             myformatspec=formats.get_badge_format()
-        myformatspec.set_mafia_calculator(formatobjects.helsinki_mafia_calculator())
-        logging.info("myformatspec:%s"%myformatspec)
+        myformatspec.set_mafia_calculator(mymafiacalculator)
         self.response.out.write(str(myformatspec))
 
 

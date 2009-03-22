@@ -5,9 +5,18 @@
 	<title>%(project)s</title>
 </head>
 <body>
-<div class="title">Onko mafia</div>
+    <form action="/" method="get" accept-charset="utf-8">
+        
+<div class="title">Onko <select name="kaupunki" id="kaupunki" onchange="submit()" size="1">
+    <option value="helsinki" %(helsinkiselected)s>Helsingin</option>
+    <option value="espoo" %(espooselected)s>Espoon</option> 
+    <option value="turku" %(turkuselected)s>Turun</option>
+    <option value="tampere" %(tampereselected)s>Tampereen</option>  
+</select> mafia</div>
 <div class="day">tänään? <span class="%(dayclass)s">%(dayresult)s</span></div>
 <div class="week">tällä viikolla? <span class="%(weekclass)s">%(weekresult)s</span></div>
+</form>
+
 <div class="feeds">Syötteet: Tulossa.
 <!-- Onko mafia tänään? <a href="" class=rss>RSS</a> <a href="" class=atom>atom</a>
 Onko mafia tällä viikolla? <a href="" class=rss>RSS</a> <a href="" class=atom>atom</a> -->

@@ -24,6 +24,13 @@ div.title {
     padding: 5pt 0.5em 5pt 0.5em;
 }
 
+select {
+    background-color: #000;
+    color: #fff;
+    font-size: 1em;
+    border: 1px solid #ffffff;
+}
+
 .day {
     padding-top: 5pt;
 }
