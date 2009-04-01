@@ -1,4 +1,5 @@
 import datetime
+import logging
 class filter:
     def __init__(self,yes,no,mafia_source=None):
         self.yes=yes
@@ -74,7 +75,7 @@ class mafia_calculator:
     def last_weekday(self,weekday=0,date=None):
         if not date:
             date=self.date
-        last_day=self.month_lengths[date.month]
+        last_day=self.month_lengths[date.month-1]
         if last_day==28 and self.is_leapyear(date.year):
             last_day=29
         candidate=last_day-(datetime.date(date.year,date.month,last_day).weekday()-weekday)
@@ -89,6 +90,8 @@ class mafia_calculator:
         if candidate<1:
             candidate+=7
         return candidate
+    def nth_dayofthisweek(self,n):
+        return self.date+(n-self.date.weekday())*self.date.resolution
 
 class helsinki_mafia_calculator(mafia_calculator):
     def today(self):
@@ -104,7 +107,7 @@ class espoo_mafia_calculator(mafia_calculator):
         return self.nth_weekday(-1)
 
     def in_this_week(self):
-        newdate=datetime.date(self.date.year,self.date.month,self.date.day-self.date.weekday())
+        newdate=self.nth_dayofthisweek(0)
         return self.nth_weekday(-1,0,newdate)
 
 class turku_mafia_calculator(mafia_calculator):
@@ -112,7 +115,7 @@ class turku_mafia_calculator(mafia_calculator):
         return self.nth_weekday(1,3)
 
     def in_this_week(self):
-        newdate=datetime.date(self.date.year,self.date.month,self.date.day+(3-self.date.weekday()))
+        newdate=self.nth_dayofthisweek(3)
         return self.nth_weekday(1,3,newdate)
 
 class tampere_mafia_calculator(mafia_calculator):
@@ -120,7 +123,7 @@ class tampere_mafia_calculator(mafia_calculator):
         return self.nth_weekday(2,1)
 
     def in_this_week(self):
-        newdate=datetime.date(self.date.year,self.date.month,self.date.day+(1-self.date.weekday()))
+        newdate=self.nth_dayofthisweek(2)
         return self.nth_weekday(2,1,newdate)
 
 mafiat={"helsinki":helsinki_mafia_calculator, 
