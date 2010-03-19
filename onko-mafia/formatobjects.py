@@ -120,16 +120,34 @@ class turku_mafia_calculator(mafia_calculator):
 
 class tampere_mafia_calculator(mafia_calculator):
     def today(self):
-        return self.nth_weekday(2,1)
+        return self.nth_weekday(2,1) or self.nth_weekday(4,1)
 
     def in_this_week(self):
-        newdate=self.nth_dayofthisweek(2)
-        return self.nth_weekday(2,1,newdate)
+        newdate=self.nth_dayofthisweek(1)
+        return self.nth_weekday(2,1,newdate) or self.nth_weekday(4,1,newdate)
 
+class jyvaskyla_mafia_calculator(mafia_calculator):
+    def today(self):
+        return self.nth_weekday(3,1)
+        
+    def in_this_week(self):
+        newdate=self.nth_dayofthisweek(1)
+        return self.nth_weekday(3,1,newdate)
+
+class rising_mafia_calculator(mafia_calculator):
+    def today(self):
+        return self.nth_weekday(2,5)
+        
+    def in_this_week(self):
+        newdate=self.nth_dayofthisweek(5)
+        return self.nth_weekday(2,5)
+        
 mafiat={"helsinki":helsinki_mafia_calculator, 
         "espoo":espoo_mafia_calculator,
         "turku":turku_mafia_calculator,
-        "tampere":tampere_mafia_calculator}
+        "tampere":tampere_mafia_calculator,
+        "jyvaskyla":jyvaskyla_mafia_calculator,
+        "rising":rising_mafia_calculator}
 
 class format_spec:
     def __init__(self,template,filter_dict):
