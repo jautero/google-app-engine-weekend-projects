@@ -50,6 +50,9 @@ class OnkoMafia(webapp.RequestHandler):
             myformatspec=formats.get_json_format()
         elif format=="badge":
             myformatspec=formats.get_badge_format()
+        elif format=="ical":
+            self.response.headers['Content-Type']="text/calendar"
+            myformatspec=formats.get_ical_format(self.request.get("upto","10"),city+" mafia")
         myformatspec.set_mafia_calculator(mymafiacalculator)
         self.response.out.write(str(myformatspec))
 

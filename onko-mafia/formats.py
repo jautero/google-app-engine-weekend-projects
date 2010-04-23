@@ -1,4 +1,5 @@
 from formatobjects import filter_weekly, filter_daily, format_spec
+from icalformat import ical_generator
 import os
 
 def get_json_format():
@@ -17,3 +18,5 @@ def get_badge_format():
          "daycolor":filter_daily("#00ff00","#ff0000"),
          "dayword":filter_daily("on","ei")})
          
+def get_ical_format(upto,event_name):
+    return ical_generator(upto,event_name)

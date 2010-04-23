@@ -31,7 +31,15 @@ class mafia_calculator:
             self.date=target_date
         else:
             self.date=datetime.date.today()
-
+    def __iter__(self):
+        return self
+    def next(self):
+        while not self.today():
+            self.date+=self.date.resolution
+        retdate=self.date
+        self.date+=self.date.resolution
+        return retdate
+        
     def is_leapyear(self,year=None):
         if year==None:
             year=self.date.year
