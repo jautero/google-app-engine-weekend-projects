@@ -25,7 +25,8 @@ class ical_generator:
         mycal.add('version', '2.0')
         self.mycal=mycal
         try:
-            self.enddate=datetime.datetime.strptime("%Y-%m-%d",upto)
+            self.enddate=datetime.datetime.strptime("%d.%m",upto)
+            self.enddate.year=datetime.date.today().year
         except Exception, e:
             try:
                 self.count=int(upto)
@@ -46,9 +47,9 @@ class ical_generator:
                 break
             event = icalendar.Event()
             event.add('summary',self.name)
-            event.add('dtstart',datetime.datetime.combine(date, self.starttime))
-            event.add('dtend',datetime.datetime.combine(date, self.endtime))
-            event.add('dtstamp',datetime.datetime.combine(date, self.starttime))
+            event.add('dtstart',date)
+            event.add('dtend',date)
+            event.add('dtstamp',datetime.date.today())
             event['uid'] = "%s@onkomafia.appspot.org" % (uuid.uuid4())
             mycal.add_component(event)
 
@@ -87,8 +88,8 @@ class ical_generatorTests(unittest.TestCase):
         self.assertEqual(curdate,self.enddate)
     def check_event(self,component,curdate):
         self.assertEqual(component["SUMMARY"],"test event")
-        self.assertEqual(component.decoded('dtstart'),datetime.datetime.combine(curdate, self.test_calendar.starttime))
-        self.assertEqual(component.decoded('dtend'),datetime.datetime.combine(curdate, self.test_calendar.endtime))
-        self.assertEqual(component.decoded('dtstamp'),datetime.datetime.combine(curdate, self.test_calendar.starttime))
+        self.assertEqual(component.decoded('dtstart'),curdate)
+        self.assertEqual(component.decoded('dtend'),curdate)
+        self.assertEqual(component.decoded('dtstamp'),datetime.date.today())
 if __name__ == '__main__':
     unittest.main()
