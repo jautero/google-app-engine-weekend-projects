@@ -66,7 +66,7 @@ class ical_generatorTests(unittest.TestCase):
         self.datetester=datetime_generator()
         self.enddate=datetime.date.today()+10*datetime.date.resolution
     def test_upto_date(self):
-        self.test_calendar=ical_generator(self.enddate.strftime("%Y-%m-%d"),"test event")
+        self.test_calendar=ical_generator(self.enddate.strftime("%d.%m"),"test event")
         self.run_calendar_test()
     def test_upto_count(self):
         self.test_calendar=ical_generator("10","test event")
