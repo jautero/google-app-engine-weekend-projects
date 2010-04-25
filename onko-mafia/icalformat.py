@@ -25,8 +25,8 @@ class ical_generator:
         mycal.add('version', '2.0')
         self.mycal=mycal
         try:
-            self.enddate=datetime.datetime.strptime("%d.%m",upto)
-            self.enddate.year=datetime.date.today().year
+            self.enddate=datetime.datetime.strptime(upto,"%d.%m").date()
+            self.enddate=self.enddate.replace(year=datetime.date.today().year)
         except Exception, e:
             try:
                 self.count=int(upto)
@@ -62,16 +62,21 @@ def datetime_generator(date=None):
             yield date
         
 class ical_generatorTests(unittest.TestCase):
+    def set_daycount(self,count):
+        self.daycount=count
+        self.enddate=datetime.date.today()+self.daycount*datetime.date.resolution        
     def setUp(self):
         self.datetester=datetime_generator()
-        self.enddate=datetime.date.today()+10*datetime.date.resolution
     def test_upto_date(self):
+        self.set_daycount(12)
         self.test_calendar=ical_generator(self.enddate.strftime("%d.%m"),"test event")
         self.run_calendar_test()
     def test_upto_count(self):
-        self.test_calendar=ical_generator("10","test event")
+        self.set_daycount(14)
+        self.test_calendar=ical_generator("14","test event")
         self.run_calendar_test()
     def test_upto_nonsense(self):
+        self.set_daycount(10)
         self.test_calendar=ical_generator("foobar","test event")
         self.run_calendar_test()
     def run_calendar_test(self):
@@ -84,7 +89,7 @@ class ical_generatorTests(unittest.TestCase):
                 count+=1
                 curdate+=curdate.resolution
                 self.check_event(component,curdate)
-        self.assertEqual(count,10)
+        self.assertEqual(count,self.daycount)
         self.assertEqual(curdate,self.enddate)
     def check_event(self,component,curdate):
         self.assertEqual(component["SUMMARY"],"test event")

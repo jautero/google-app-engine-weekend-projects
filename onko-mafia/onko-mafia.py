@@ -36,7 +36,9 @@ from google.appengine.ext import webapp
 class OnkoMafia(webapp.RequestHandler):
     def get(self):
         template_values=dict(globals())
-        city=self.request.get("kaupunki","helsinki")
+        city=self.request.get("kaupunki","helsinki").encode()
+        logging.info(repr(city))
+        template_values['city']=city
         for candidate in mafiat.keys():
             if candidate==city:
                 template_values[candidate+"selected"]="selected"
@@ -55,7 +57,6 @@ class OnkoMafia(webapp.RequestHandler):
             myformatspec=formats.get_ical_format(self.request.get("upto","10"),city+" mafia")
         myformatspec.set_mafia_calculator(mymafiacalculator)
         self.response.out.write(str(myformatspec))
-
 
       
 def main():

@@ -57,11 +57,23 @@ div.copyright {
 }
 
 div.feeds {
-    font-size: 16pt;
+    font-size: 12pt;
     text-align: right;
     float: right;
     
 }
+div.feeds a {
+    padding-left: 0.5em;
+}
+/*
+span.ical {
+    border-style: outset;
+    color: #ffffff;
+    background-color: #d0d0ff;
+    padding:2pt;
+    font-size:8pt;
+}*/
+
 .new {
     text-align:left;
     font-size: 16pt;

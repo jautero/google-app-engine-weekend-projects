@@ -163,7 +163,8 @@ class format_spec:
         self.filter_dict=filter_dict
 
     def __str__(self):
-        return self.template % self.filter_dict
+        output=self.template % self.filter_dict
+        return output
 
     def set_mafia_calculator(self,calculator):
         for item in self.filter_dict.values():
