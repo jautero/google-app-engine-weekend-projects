@@ -28,6 +28,7 @@ import logging
 import wsgiref.handlers
 import os,datetime
 import formats
+import urlparse
 from formatobjects import mafiat
 
 from google.appengine.ext.webapp import template
@@ -39,6 +40,11 @@ class OnkoMafia(webapp.RequestHandler):
         city=self.request.get("kaupunki","helsinki").encode()
         logging.info(repr(city))
         template_values['city']=city
+        template_values['netloc']=urlparse.urlparse(self.request.url).netloc
+        if str(self.request.headers["User-Agent"]).find("Mac OS X") != -1:
+            template_values['icalprotocol']="webcal"
+        else:
+            template_values['icalprotocol']="http"
         for candidate in mafiat.keys():
             if candidate==city:
                 template_values[candidate+"selected"]="selected"

@@ -19,7 +19,7 @@
 <div class="week">tällä viikolla? <span class="%(weekclass)s">%(weekresult)s</span></div>
 </form>
 
-<div class="feeds"><span class="ical">Lisää kalenteriisi:</span><a href="/?kaupunki=%(city)s&format=ical&upto=10">seuraavat 10</a><a href="/?kaupunki=%(city)s&format=ical&upto=31.12">vuoden loppuun</a>
+<div class="feeds"><span class="ical">Lisää kalenteriisi:</span><a href="%(icalprotocol)s://%(netloc)s/?kaupunki=%(city)s&format=ical&upto=10">seuraavat 10</a><a href="/?kaupunki=%(city)s&format=ical&upto=31.12">vuoden loppuun</a>
 
 </div>
     <div class="new">Nyt voit myös <a href="/static/badge.html">lisätä mafiatiedot sivullesi</a>!</div>
