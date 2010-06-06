@@ -38,8 +38,15 @@ new=raw_input("Handler class name (%s): " % handlername).strip()
 if new:
     handlername=new
 
-authorname=raw_input("Author name: ")
-authormail=raw_input("Author email: ")
+authorname=os.popen("git config user.name").read().strip()
+authormail=os.popen("git config user.email").read().strip()
+
+new=raw_input("Author name (%s): " %authorname).strip()
+if new:
+    authorname=new
+new=raw_input("Author email (%s): " % authormail).strip()
+if new:
+    authormail=new
 author="%s <%s>" % (authorname,authormail)
 
 year=str(time.localtime()[0])
