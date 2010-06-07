@@ -1,0 +1,5 @@
+cron:
+- description: Lotto-arvonnan tarkistus
+  url: /tulokset
+  schedule: every saturday 21:00
+  timezone: Europe/Helsinki

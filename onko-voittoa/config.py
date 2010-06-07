@@ -1,0 +1,1 @@
+lottourl="https://www.veikkaus.fi/pelit?op=frontpage&game=lotto&l=f"
