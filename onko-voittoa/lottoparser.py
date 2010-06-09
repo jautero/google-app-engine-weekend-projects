@@ -10,7 +10,6 @@ class LottoPageParser:
         
     def find_kierros(self,text):
         regexp=re.compile("Kierros (\d+)")
-        print text
         result=regexp.search(text)
         if result:
             return int(result.group(1))
