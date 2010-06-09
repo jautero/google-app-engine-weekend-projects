@@ -40,21 +40,50 @@ class OnkoVoittoa(webapp.RequestHandler):
 
   def get(self):
     template_values=globals()
-    rivit=lottorivitmodel.LottoRivi.gql("where author = :1",users.get_current_user())
+    rivit=lottorivitmodel.LottoRivi.gql("where owner = :1",users.get_current_user())
     voittoluokat=lottorivitmodel.Voittoluokat.all()
     voittorivi=lottorivitmodel.VoittoRivi.gql("ORDER BY vuosi DESC,kierros DESC").get()
     tarkistaja=LottoTarkistaja(voittorivi,voittoluokat)
     voitto=False
+    template_values["rivit"]=[]
     for rivi in rivit:
-      if tarkistaja.tarkista(rivi):
+      template_values["rivit"].append(rivi.numerot)
+      if tarkistaja.tarkista(rivi.numerot):
         voitto=True
-    template_values["rivit"]=rivit
     template_values["voitto"]=voitto
     path = os.path.join(os.path.dirname(__file__), 'index.html')
     self.response.out.write(template.render(path, template_values))
+    
+  def post(self):
+    id=self.request.get("id",None)
+    if id:
+      rivi=lottorivitmodel.LottoRivi
+    else:
+      rivi=lottorivitmodel.LottoRivi()
+    rivi.numerot=[int(n) for n in self.request.get_all("number")]
+    rivi.put()
+    self.get()
 
+class VoitotHandler(webapp.RequestHandler):
+
+      def get(self):
+        template_values=globals()
+        voittoluokat=lottorivitmodel.Voittoluokat.all()
+        template_values["luokat"]=[]
+        for luokka in voittoluokat:
+          template_values["luokat"].append((luokka.numerot_count,luokka.lisanumerot_count))
+        path = os.path.join(os.path.dirname(__file__), 'voitot.html')
+        self.response.out.write(template.render(path, template_values))
+
+      def post(self):
+        rivi=lottorivitmodel.Voittoluokat()
+        rivi.numerot_count=int(self.request.get("numerot"))
+        rivi.lisanumerot_count=int(self.request.get("lisanumerot"))
+        rivi.put()
+        self.get()
+        
 def main():
-  application = webapp.WSGIApplication([('/', OnkoVoittoa), ('/tulokset', RivitHandler)],
+  application = webapp.WSGIApplication([('/', OnkoVoittoa), ('/tulokset', RivitHandler), ("/voitot", VoitotHandler)],
                                        debug=True)
   wsgiref.handlers.CGIHandler().run(application)
 

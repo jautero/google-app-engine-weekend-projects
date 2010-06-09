@@ -3,3 +3,10 @@
    Copyright 2010 Juha Autero <jautero@iki.fi>
 
 */
+body {  
+  font-family: Helvetica, sans-serif;
+  color: #000;
+  background-color:#fff;
+  font-size: 20pt;
+  text-align: left;
+}

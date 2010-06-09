@@ -7,6 +7,12 @@ handlers:
 - url: /static
   static_dir: static_files
 
-- url: /.*
+- url: /
   script: onko-voittoa.py
   login: required
+- url: /tulokset
+  script: onko-voittoa.py
+  login: admin
+- url: /voitot
+  script: onko-voittoa.py
+  login: admin
