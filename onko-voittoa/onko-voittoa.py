@@ -22,7 +22,7 @@
 project="Onko Voittoa"
 version="1.0"
 author="Juha Autero <jautero@iki.fi>"
-copyright="Copyright 2010 Juha Autero <jautero@iki.fi>"
+copyright="Copyright &copy; 2010 Juha Autero <jautero@iki.fi>"
 application="onko-voittoa"
 import wsgiref.handlers
 import os
