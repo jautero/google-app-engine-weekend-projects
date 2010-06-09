@@ -6,9 +6,9 @@ class VoittoRivi(db.Model):
     lisanumerot=db.ListProperty(int)
     
 class LottoRivi(db.Model):
-    owner=db.UserProperty(auto_current_user_Add=True)
+    owner=db.UserProperty(auto_current_user_add=True)
     numerot=db.ListProperty(int)
 
-class Voittoluokat(db.model):
+class Voittoluokat(db.Model):
     numerot_count=db.IntegerProperty()
     lisanumerot_count=db.IntegerProperty()

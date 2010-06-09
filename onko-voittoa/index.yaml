@@ -10,3 +10,9 @@ indexes:
 # automatically uploaded to the admin console when you next deploy
 # your application using appcfg.py.
 
+- kind: VoittoRivi
+  properties:
+  - name: vuosi
+    direction: desc
+  - name: kierros
+    direction: desc

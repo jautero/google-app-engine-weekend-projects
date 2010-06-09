@@ -5,8 +5,29 @@
 	<title>{{ project }}</title>
 </head>
 <body>
-<h1>Welcome to {{ project }}</h1>
-Version: {{ version }}
+{% if voitto %}
+<h1 class="voitto">Voitto!</h1>
+{% else %}
+<h1 class="eivoittoa">Ei voittoa!</h1>
+{% endif %}
+
+{% for rivi in rivit %}
+<div class="lottorivi">
+	{% for numero in rivi.numerot %}
+	<span class="numero">{{numero}}</span>
+	{% endfor %}
+</div>
+{% endfor %}
+<form action="/" method="post">
+	<input type="text" name="number" value="">
+	<input type="text" name="number" value="">
+	<input type="text" name="number" value="">
+	<input type="text" name="number" value="">
+	<input type="text" name="number" value="">
+	<input type="text" name="number" value="">
+	<input type="text" name="number" value="">
+	<input type="submit" name="action" value="Lisää rivi" id="action">
+</form>
 <address>
 {{copyright}}
 </address>
