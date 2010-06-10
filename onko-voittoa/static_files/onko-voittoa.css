@@ -10,3 +10,9 @@ body {
   font-size: 20pt;
   text-align: left;
 }
+
+H1.voitto { color: #008000;}
+H1.eivoittoa { color: #ff0000;}
+/*.lottorivi {background-color: #808080;}
+.numero {background-color: #f0f0f0; } */
+input.lottoinput {width: 2em;}
