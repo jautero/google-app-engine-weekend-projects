@@ -12,3 +12,8 @@ class LottoRivi(db.Model):
 class Voittoluokat(db.Model):
     numerot_count=db.IntegerProperty()
     lisanumerot_count=db.IntegerProperty()
+    plus=db.BooleanProperty(default=False)
+
+class Asetukset(db.Model):
+    user=db.UserProperty(auto_current_user_add=True)
+    plus=db.BooleanProperty(default=False)

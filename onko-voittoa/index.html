@@ -6,11 +6,19 @@
 </head>
 <body>
 {% if voitto %}
-<h1 class="voitto">Voitto!</h1>
+<h1 class="voitto">voitto!</h1>
 {% else %}
-<h1 class="eivoittoa">Ei voittoa!</h1>
+<h1 class="eivoittoa">ei voittoa!</h1>
 {% endif %}
 
+<h2>viimeisin lottorivi</h2>
+<div class="lottorivi">
+	{% for numero in voittorivi %}
+	<span class="numero">{{numero}}</span>
+	{% endfor %}
+</div>	
+	
+<h2>omat rivisi</h2>
 {% for rivi in rivit %}
 <div class="lottorivi">
 	{% for numero in rivi %}
@@ -18,6 +26,7 @@
 	{% endfor %}
 </div>
 {% endfor %}
+<h3>sy&ouml;t&auml; uusi rivi</h3>
 <form action="/" method="post">
 	<input type="text" name="number" value="" class="lottoinput">
 	<input type="text" name="number" value="" class="lottoinput">
@@ -28,6 +37,10 @@
 	<input type="text" name="number" value="" class="lottoinput">
 	<input type="submit" name="action" value="Lis&auml;&auml; rivi" id="action">
 </form>
+<h2>asetukset </h2>
+<form action="/asetukset" method="post">
+	<input type="checkbox" name="plus" value="true" id="plus" {{pluschecked}}> LottoPlus -lis&auml;voittoluokat
+	<input type="submit" name="action" value="P&auml;ivit&auml;">
 <address>
 {{copyright}}
 </address>

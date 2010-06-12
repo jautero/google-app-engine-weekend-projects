@@ -16,3 +16,7 @@ handlers:
 - url: /voitot
   script: onko-voittoa.py
   login: admin
+- url: /asetukset
+  script: onko-voittoa.py
+  login: required
+
