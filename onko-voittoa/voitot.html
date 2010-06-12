@@ -10,11 +10,16 @@
 <div class="voittoluokka">
 	Numerot:<span class="voittonumero"> {{luokka.0}} </span>
 	Lis&auml;numerot:<span class="voittonumero">{{luokka.1}} </span>
+	{% if luokka.2 %}
+	LottoPlus-lis&auml;voittoluokka
+	{% endif %}
+	
 </div>
 {% endfor %}
 <form action="" method="post">
 	Numerot: <input type="text" name="numerot" value="0" class="lottoinput">
 	Lis&auml;numerot<input type="text" name="lisanumerot" value="0" class="lottoinput">
+	LottoPlus-lis&auml;voittoluokka:<input type="checkbox" name="plus" value="true">
 	<input type="submit" name="action" value="Lis&auml;&auml; luokka" id="action">
 </form>
 <address>

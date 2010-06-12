@@ -82,7 +82,7 @@ class VoitotHandler(webapp.RequestHandler):
         voittoluokat=lottorivitmodel.Voittoluokat.all()
         template_values["luokat"]=[]
         for luokka in voittoluokat:
-          template_values["luokat"].append((luokka.numerot_count,luokka.lisanumerot_count))
+          template_values["luokat"].append((luokka.numerot_count,luokka.lisanumerot_count,luokka.plus))
         path = os.path.join(os.path.dirname(__file__), 'voitot.html')
         self.response.out.write(template.render(path, template_values))
 
@@ -90,6 +90,7 @@ class VoitotHandler(webapp.RequestHandler):
         rivi=lottorivitmodel.Voittoluokat()
         rivi.numerot_count=int(self.request.get("numerot"))
         rivi.lisanumerot_count=int(self.request.get("lisanumerot"))
+        rivi.plus=(self.request.get("plus","false")=="true")
         rivi.put()
         self.get()
         
