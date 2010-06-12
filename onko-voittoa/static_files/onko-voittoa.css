@@ -11,6 +11,7 @@ body {
   text-align: left;
 }
 
+.logout {float: right;}
 H1.voitto { color: #008000;}
 H1.eivoittoa { color: #ff0000;}
 /*.lottorivi {background-color: #808080;}

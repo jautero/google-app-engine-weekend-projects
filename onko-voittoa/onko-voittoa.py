@@ -41,7 +41,7 @@ class OnkoVoittoa(webapp.RequestHandler):
   def get(self):
     template_values=globals()
     current_user=users.get_current_user()
-    asetukset=lottorivitmodel.Asetukset.gql("where owner = :1", current_user).get()
+    asetukset=lottorivitmodel.Asetukset.gql("where user = :1", current_user).get()
     if not asetukset:
       asetukset=lottorivitmodel.Asetukset()
     rivit=lottorivitmodel.LottoRivi.gql("where owner = :1",current_user)
@@ -50,18 +50,18 @@ class OnkoVoittoa(webapp.RequestHandler):
     voittorivi=lottorivitmodel.VoittoRivi.gql("ORDER BY vuosi DESC,kierros DESC").get()
     tarkistaja=LottoTarkistaja(voittorivi,voittoluokat)
     voitto=False
+    template_values["logouturl"]=users.create_logout_url("/")
     template_values["voittorivi"]=voittorivi.numerot
-    print asetukset,asetukset.plus
-    if asetukset.plus:
-      template_values["pluschecked"]="checked"
-    else:
-      template_values["pluschecked"]=""
     template_values["rivit"]=[]
     for rivi in rivit:
       template_values["rivit"].append(rivi.numerot)
       if tarkistaja.tarkista(rivi.numerot):
         voitto=True
     template_values["voitto"]=voitto
+    if asetukset.plus:
+      template_values["pluschecked"]="checked"
+    else:
+      template_values["pluschecked"]=""
     path = os.path.join(os.path.dirname(__file__), 'index.html')
     self.response.out.write(template.render(path, template_values))
     
