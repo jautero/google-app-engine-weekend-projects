@@ -40,11 +40,22 @@ class OnkoVoittoa(webapp.RequestHandler):
 
   def get(self):
     template_values=globals()
-    rivit=lottorivitmodel.LottoRivi.gql("where owner = :1",users.get_current_user())
-    voittoluokat=lottorivitmodel.Voittoluokat.all()
+    current_user=users.get_current_user()
+    asetukset=lottorivitmodel.Asetukset.gql("where owner = :1", current_user).get()
+    if not asetukset:
+      asetukset=lottorivitmodel.Asetukset()
+    rivit=lottorivitmodel.LottoRivi.gql("where owner = :1",current_user)
+    voittoluokatplus=lottorivitmodel.Voittoluokat.all()
+    voittoluokat=lottorivitmodel.Voittoluokat.gql("where plus=False")
     voittorivi=lottorivitmodel.VoittoRivi.gql("ORDER BY vuosi DESC,kierros DESC").get()
     tarkistaja=LottoTarkistaja(voittorivi,voittoluokat)
     voitto=False
+    template_values["voittorivi"]=voittorivi.numerot
+    print asetukset,asetukset.plus
+    if asetukset.plus:
+      template_values["pluschecked"]="checked"
+    else:
+      template_values["pluschecked"]=""
     template_values["rivit"]=[]
     for rivi in rivit:
       template_values["rivit"].append(rivi.numerot)
@@ -57,7 +68,7 @@ class OnkoVoittoa(webapp.RequestHandler):
   def post(self):
     id=self.request.get("id",None)
     if id:
-      rivi=lottorivitmodel.LottoRivi
+      rivi=lottorivitmodel.LottoRivi.gql("where owner = :1 and id = :2",users.geet_current_user(),id)
     else:
       rivi=lottorivitmodel.LottoRivi()
     rivi.numerot=[int(n) for n in self.request.get_all("number")]
@@ -82,8 +93,20 @@ class VoitotHandler(webapp.RequestHandler):
         rivi.put()
         self.get()
         
+class AsetuksetHandler(webapp.RequestHandler):
+  def get(self):
+    self.redirect("/")
+  def post(self):
+    asetukset=lottorivitmodel.Asetukset.gql("where owner = :1", users.get_current_user()).get()
+    if not asetukset:
+      asetukset=lottorivitmodel.Asetukset()
+    asetukset.plus=(self.request.get("plus","false")=="true")
+    asetukset.put()
+    self.get()
+
 def main():
-  application = webapp.WSGIApplication([('/', OnkoVoittoa), ('/tulokset', RivitHandler), ("/voitot", VoitotHandler)],
+  application = webapp.WSGIApplication([('/', OnkoVoittoa), ('/tulokset', RivitHandler), ("/voitot", VoitotHandler),
+                                        ('/asetukset', AsetuksetHandler)],
                                        debug=True)
   wsgiref.handlers.CGIHandler().run(application)
 
