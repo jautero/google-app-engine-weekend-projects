@@ -52,6 +52,8 @@ class OnkoVoittoa(webapp.RequestHandler):
     voitto=False
     template_values["logouturl"]=users.create_logout_url("/")
     template_values["voittorivi"]=voittorivi.numerot
+    template_values["lisanumerot"]=voittorivi.lisanumerot
+    template_values["kierros"]="%d/%d" % (voittorivi.kierros,voittorivi.vuosi)
     template_values["rivit"]=[]
     for rivi in rivit:
       template_values["rivit"].append(rivi.numerot)

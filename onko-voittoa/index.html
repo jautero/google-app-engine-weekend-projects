@@ -14,10 +14,16 @@
 
 <h2>viimeisin lottorivi</h2>
 <div class="lottorivi">
+	Kierros {{kierros}}
 	{% for numero in voittorivi %}
 	<span class="numero">{{numero}}</span>
 	{% endfor %}
+	Lis&auml;numerot:
+	{% for numero in lisanumerot %}
+	<span class="numero">{{numero}}</span>
+	{% endfor %}
 </div>	
+
 	
 <h2>omat rivisi</h2>
 {% for rivi in rivit %}
