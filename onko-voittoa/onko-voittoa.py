@@ -46,8 +46,12 @@ class OnkoVoittoa(webapp.RequestHandler):
       asetukset=lottorivitmodel.Asetukset()
     rivit=lottorivitmodel.LottoRivi.gql("where owner = :1",current_user)
     voittoluokatplus=lottorivitmodel.Voittoluokat.all()
-    voittoluokat=lottorivitmodel.Voittoluokat.gql("where plus=False")
+    voittoluokatnormaali=lottorivitmodel.Voittoluokat.gql("where plus=False")
     voittorivi=lottorivitmodel.VoittoRivi.gql("ORDER BY vuosi DESC,kierros DESC").get()
+    if asetukset.plus:
+        voittoluokat=voittoluokatplus
+    else:
+        voittoluokat=voittoluokatnormaali
     tarkistaja=LottoTarkistaja(voittorivi,voittoluokat)
     voitto=False
     template_values["logouturl"]=users.create_logout_url("/")
