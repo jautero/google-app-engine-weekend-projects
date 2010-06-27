@@ -8,8 +8,12 @@ import datetime
     
 class RivitHandler(webapp.RequestHandler):
     def get(self):
-        tuorein_kierros=VoittoRivi.gql("ORDER BY vuosi DESC,kierros DESC").get().kierros
-        taskqueue.add(self.request.path,params={"kierros":tuorein_kierros})
+        rivi=VoittoRivi.gql("ORDER BY vuosi DESC,kierros DESC").get()
+        if rivi:
+            tuorein_kierros=rivi.kierros
+        else:
+            tuorein_kierros=0
+        taskqueue.add(url=self.request.path,params={"kierros":tuorein_kierros})
             
     def post(self):
         edellinen_kierros=self.request.get("kierros",None)
