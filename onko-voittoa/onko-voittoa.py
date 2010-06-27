@@ -59,10 +59,12 @@ class OnkoVoittoa(webapp.RequestHandler):
     template_values["lisanumerot"]=voittorivi.lisanumerot
     template_values["kierros"]="%d/%d" % (voittorivi.kierros,voittorivi.vuosi)
     template_values["rivit"]=[]
+    template_values["voitot"]=[]
     for rivi in rivit:
       template_values["rivit"].append(rivi.numerot)
-      if tarkistaja.tarkista(rivi.numerot):
+      for result in tarkistaja.tarkista(rivi.numerot):
         voitto=True
+        template_values["voitot"].append(str(result))
     template_values["voitto"]=voitto
     if asetukset.plus:
       template_values["pluschecked"]="checked"
@@ -80,7 +82,7 @@ class OnkoVoittoa(webapp.RequestHandler):
     rivi.numerot=[int(n) for n in self.request.get_all("number")]
     rivi.put()
     self.get()
-
+    
 class VoitotHandler(webapp.RequestHandler):
 
       def get(self):

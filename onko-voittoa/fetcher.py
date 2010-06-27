@@ -21,7 +21,7 @@ class RivitHandler(webapp.RequestHandler):
             year=datetime.date.today().year
             if kierros>5 and datetime.date.today().month==1:
                 year-=1
-            if edellinen_kierros and kierros != edellinen_kierros
+            if edellinen_kierros and kierros != edellinen_kierros:
                 rivi=VoittoRivi(kierros=kierros,vuosi=year,numerot=parser.numerot,lisanumerot=parser.lisanumerot)
                 rivi.put()
             else:

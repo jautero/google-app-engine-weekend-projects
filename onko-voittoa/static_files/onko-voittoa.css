@@ -10,10 +10,10 @@ body {
   font-size: 10pt;
   text-align: left;
 }
-
+.content {width:62%; margin-left: auto; margin-right:auto; }
 .logout {float: right;}
-H1.voitto { color: #008000;}
-H1.eivoittoa { color: #ff0000;}
+H1.voitto { color: #008000; text-align:center;}
+H1.eivoittoa { color: #ff0000; text-align: center;}
 /*.lottorivi {background-color: #808080;}
 .numero {background-color: #f0f0f0; } */
 input.lottoinput {width: 2em;}
