@@ -29,6 +29,7 @@ import os
 
 from google.appengine.ext.webapp import template
 from google.appengine.ext import webapp
+from model import Account, Product
 
 class Limukassa(webapp.RequestHandler):
 
