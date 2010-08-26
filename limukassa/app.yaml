@@ -9,6 +9,7 @@ handlers:
 
 - url: /.*
   script: limukassa.py
+  login: required
 
 - url: /admin
   script: admin.py
