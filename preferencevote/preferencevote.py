@@ -19,7 +19,7 @@
 # limitations under the License.
 #
 
-project="preferencevote"
+Project="Preference Vote"
 version="1.0"
 author="Juha Autero <jautero@iki.fi>"
 copyright="Copyright 2011 Juha Autero <jautero@iki.fi>"
