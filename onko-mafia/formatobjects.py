@@ -148,14 +148,23 @@ class rising_mafia_calculator(mafia_calculator):
         
     def in_this_week(self):
         newdate=self.nth_dayofthisweek(5)
-        return self.nth_weekday(2,5)
-        
+        return self.nth_weekday(2,5,newdate)
+       
+class helsinki_hacklab_calculator(mafia_calculator):
+    def today(self):
+        return self.nth_weekday(2,5) or self.nth_weekday(2,6)
+
+    def in_this_week(self):
+        newdate=self.nth_dayofthisweek(5)
+        return self.nth_weekday(2,5,newdate)
+
 mafiat={"helsinki":helsinki_mafia_calculator, 
         "espoo":espoo_mafia_calculator,
         "turku":turku_mafia_calculator,
         "tampere":tampere_mafia_calculator,
         "jyvaskyla":jyvaskyla_mafia_calculator,
-        "rising":rising_mafia_calculator}
+        "rising":rising_mafia_calculator,
+        "hacklab":helsinki_hacklab_calculator}
 
 class format_spec:
     def __init__(self,template,filter_dict):
