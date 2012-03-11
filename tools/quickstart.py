@@ -10,6 +10,7 @@ from types import StringType
 wordsplit=re.compile("\W+").split
 templatedir="ATemplate"
 staticdir="static_files"
+bootstrapurl="http://twitter.github.com/bootstrap/assets/bootstrap.zip"
 
 def convertfile(source,target,subst={}):
     if isinstance(source,StringType):
@@ -23,6 +24,18 @@ def convertfile(source,target,subst={}):
 	data=subre.sub(subst[key],data)
     target.write(data)
     target.close()
+
+def askyesno(question,default):
+    answer=""
+    while answer != "y" and answer != "n":
+        answer=raw_input("%s (y/n) [%s]" % (question,default))
+        if not answer:
+            answer=default
+        answer=answer.lower()
+    if answer == "y":
+        return True
+    else:
+        return False
 
 project=raw_input("Project name: ")
 projectwords=wordsplit(project.lower())
@@ -47,6 +60,9 @@ if new:
 new=raw_input("Author email (%s): " % authormail).strip()
 if new:
     authormail=new
+
+bootstrap=askyesno("Do you want Twitter's Bootstrap?","y")
+
 author="%s <%s>" % (authorname,authormail)
 
 year=str(time.localtime()[0])
@@ -71,4 +87,14 @@ convertfile(os.path.join(templatedir,"application.js"),
 	    os.path.join(applicationname,staticdir,applicationname+".js"),subst_dict)
 convertfile(os.path.join(templatedir,"application.py"),
 	    os.path.join(applicationname,applicationname+".py"),subst_dict)
+# Fetch Bootstrap
+if bootstrap:
+    import urllib2, zipfile, cStringIO
+    zip=zipfile.ZipFile(cStringIO.StringIO(urllib2.urlopen(bootstrapurl).read()))
+    for filename in zip.namelist():
+        if filename.endswith('/'):
+            os.makedirs(os.path.join(applicationname,staticdir,filename))
+        else:
+            zip.extract(filename,os.path.join(applicationname,staticdir))
+
 
