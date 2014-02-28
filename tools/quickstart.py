@@ -62,6 +62,7 @@ if new:
     authormail=new
 
 bootstrap=askyesno("Do you want Twitter's Bootstrap?","y")
+unittests=askyesno("Do you want have unit tests and TDDStateTarcker","y")
 
 author="%s <%s>" % (authorname,authormail)
 
@@ -85,7 +86,11 @@ convertfile(os.path.join(templatedir,"application.css"),
 	    os.path.join(applicationname,staticdir,applicationname+".css"),subst_dict)
 convertfile(os.path.join(templatedir,"application.js"),
 	    os.path.join(applicationname,staticdir,applicationname+".js"),subst_dict)
-convertfile(os.path.join(templatedir,"application.py"),
+if unittests:
+    convertfile(os.path.join(templatedir,"application-ut.py"),
+        os.path.join(applicationname,applicationname+".py"),subst_dict)
+else:
+    convertfile(os.path.join(templatedir,"application.py"),
 	    os.path.join(applicationname,applicationname+".py"),subst_dict)
 # Fetch Bootstrap
 if bootstrap:
@@ -97,4 +102,10 @@ if bootstrap:
         else:
             zip.extract(filename,os.path.join(applicationname,staticdir))
 
-
+if unittests:
+        convertfile(os.path.join(templatedir,"test","tdd-state-tracker.css"),
+            os.path.join(applicationname,staticdir,"tdd-state-tracker.css"),subst_dict)
+        convertfile(os.path.join(templatedir,"test","tdd-state-tracker.js"),
+            os.path.join(applicationname,staticdir,"tdd-state-tracker.js"),subst_dict)
+        convertfile(os.path.join(templatedir,"test","test.html"),
+            os.path.join(applicationname,"test.html"),subst_dict)
