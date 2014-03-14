@@ -17,6 +17,14 @@
 		tracker.initState();
 	});
 	</script>
+    <div id="tests">
+        {% for test in tests%}
+        <div class="test">
+            <div class="test-{{test.result}}">{{test.result}}</div>
+            <div class="comment">{{test.comment}}</div>        
+        </div>
+        {% endfor %}
+    </div>
 	<div id="tdd-state">	    
 	</div>
 </body>
